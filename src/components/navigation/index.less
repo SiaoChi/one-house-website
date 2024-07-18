@@ -1,0 +1,33 @@
+.Navigation {
+  @apply fixed top-0 flex w-full items-center justify-start bg-backgroundColor text-textColor;
+
+  .logo {
+    width: image-width(@img) * @scale;
+    height: image-height(@img) * @scale;
+    background-image: url(@img);
+    background-size: 100%;
+    transition-duration: 200ms;
+
+    @scale: 1;
+    @img: './img/logo.svg';
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .shadow-off {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.9);
+  }
+
+  .shadow-on {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  button,
+  a {
+    &:hover {
+      @apply text-gray-600;
+    }
+  }
+}

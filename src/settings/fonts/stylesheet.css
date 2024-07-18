@@ -1,0 +1,21 @@
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'Reddit Sans';
+  src:
+    url('./RedditSans-Regular.woff2') format('woff2'),
+    url('./RedditSans-Regular.woff') format('woff');
+
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: normal;
+  font-style: italic;
+  font-family: 'Reddit Sans italic';
+  src:
+    url('./RedditSans-Italic.woff2') format('woff2'),
+    url('./RedditSans-Italic.woff') format('woff');
+
+  font-display: swap;
+}

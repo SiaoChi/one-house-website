@@ -1,0 +1,49 @@
+.Menu {
+  @apply pointer-events-auto flex flex-row items-center;
+
+  .dot {
+    @apply pointer-events-none flex h-10 w-10 items-center justify-center rounded-full bg-transparent duration-500;
+
+    & > div {
+      @apply relative h-4 w-4 rounded-full bg-black duration-500;
+
+      & > div {
+        margin-left: -40%;
+        width: 80%;
+        height: 1px;
+        transform: rotate(0deg);
+        @apply absolute left-1/2 top-1/2 bg-transparent opacity-0 duration-500;
+      }
+    }
+  }
+
+  .on {
+    & > div {
+      @apply h-8 w-8 rotate-180;
+
+      & > div {
+        @apply bg-white;
+      }
+
+      & > div:nth-child(1) {
+        transform: rotate(-225deg);
+        @apply opacity-100;
+      }
+      & > div:nth-child(2) {
+        transform: rotate(225deg);
+        @apply opacity-100;
+      }
+    }
+  }
+
+  & > button {
+    &:hover {
+      & > div {
+        & > div {
+          transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          @apply scale-110 bg-gray-700 duration-200;
+        }
+      }
+    }
+  }
+}

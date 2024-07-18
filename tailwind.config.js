@@ -14,14 +14,18 @@ export default {
     fontSize: {
       ...fontSize,
     },
+    fontFamily: {
+      reddit: ['Reddit Sans', 'sans-serif'],
+      redditItalic: ['Reddit Sans italic', 'sans-serif'],
+    },
     colors: {
       ...color,
       primary: '#870000',
       secondary: '#ff6600',
       tertiary: '#ff0066',
       quaternary: '#00ff00',
-      backgroundColor: '#111',
-      textColor: '#eee',
+      backgroundColor: '#ffffff',
+      textColor: '#000000',
     },
     extend: {},
   },

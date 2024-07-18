@@ -7,6 +7,7 @@ import {
   LoadingProcessType,
   TContext,
   TLoadingProcessState,
+  TMenuDrawState,
 } from './type';
 
 export const LoadingProcessState: TLoadingProcessState = {
@@ -15,9 +16,14 @@ export const LoadingProcessState: TLoadingProcessState = {
   body: '',
 };
 
+export const MenuDraw: TMenuDrawState = {
+  enabled: false,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
+  [ActionType.MenuDraw]: MenuDraw,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);
@@ -58,3 +64,4 @@ export const Reducer = (state: IState, action: IAction): IState => {
   if (action.type) return { ...state, [action.type]: action.state };
   return state;
 };
+MenuDraw;
