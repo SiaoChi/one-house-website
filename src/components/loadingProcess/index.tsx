@@ -17,7 +17,7 @@ const LoadingProcess = memo(() => {
   return (
     <div className='absolute top-0 z-50 flex h-full w-full flex-col items-center justify-center space-y-3'>
       <Background />
-      <ReactLoading className='relative' type={data?.type} />
+      <ReactLoading className='relative' type={data?.type} color='#000' />
       {data?.body && <Text>{data.body}</Text>}
     </div>
   );

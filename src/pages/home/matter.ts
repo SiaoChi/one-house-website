@@ -15,6 +15,7 @@ import { SVGs } from './config';
 
 type TProps = {
   element: HTMLElement;
+  onload: () => void;
 };
 
 export default class MatterSVG {
@@ -30,7 +31,7 @@ export default class MatterSVG {
     offset: { x: number; y: number };
   }[] = [];
 
-  dropHeight = -50;
+  dropHeight = 0;
 
   constructor(props: TProps) {
     this.props = props;
@@ -76,7 +77,9 @@ export default class MatterSVG {
   onLoaded() {
     if (this.SVGsProperty.length === SVGs.length) {
       this.appendSVGs();
-      Runner.run(this.runner, this.engine);
+      setTimeout(() => {
+        Runner.run(this.runner, this.engine);
+      }, 1200);
 
       this.renderer();
       this.mouseCollision();
@@ -159,6 +162,8 @@ export default class MatterSVG {
     });
 
     EnterFrame.play();
+
+    this.props.onload();
   }
 
   resize() {
