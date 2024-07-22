@@ -1,3 +1,21 @@
 .Home {
   @apply h-full;
+
+  .physics {
+    // background-image: url(./img/t08.svg);
+    // background-position: center 0;
+    // background-repeat: no-repeat;
+
+    @apply overflow-hidden;
+
+    canvas {
+      @apply absolute top-0;
+    }
+
+    svg {
+      @apply pointer-events-none absolute left-0 top-0 hidden;
+    }
+  }
+
+  //[&>canvas]:absolute [&>canvas]:top-0
 }
