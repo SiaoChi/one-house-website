@@ -1,0 +1,49 @@
+.ScrollDown {
+  width: image-width(@img) * @scale;
+  height: image-height(@img) * @scale;
+
+  @scale: 1;
+  @img: './img/scrollDown.svg';
+
+  @apply absolute bottom-12 right-5;
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    background-image: url(@img);
+    background-size: 100%;
+    content: '';
+    animation: upAndDown 1.5s ease-in-out infinite;
+    animation-delay: -0.15s;
+    @apply absolute left-0 top-0;
+  }
+
+  &::after {
+    top: 200%;
+    margin-left: 0 - image-width(@img) * @scale * 0.5;
+    width: image-width(@img) * @scale;
+    height: image-height(@img) * @scale;
+    background-image: url(@img);
+    background-size: 100%;
+    content: '';
+    animation: upAndDown 1.5s ease-in-out infinite;
+
+    @scale: 1;
+    @img: './img/arrow.svg';
+    @apply absolute left-1/2;
+  }
+}
+
+@keyframes upAndDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

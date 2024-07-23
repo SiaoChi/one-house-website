@@ -1,5 +1,5 @@
 import { Context } from '@/settings/constant';
-import { memo, useContext } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import Button from '../button';
 import Column from '../column';
 import Menu from '../menu';
@@ -7,30 +7,29 @@ import './index.less';
 import { ActionType } from '@/settings/type';
 import { twMerge } from 'tailwind-merge';
 import Row from '../row';
+import useMedia, { MediaType } from '@/hooks/useMedia';
 
 const Navigation = memo(() => {
   const [context] = useContext(Context);
   const state = context[ActionType.MenuDraw];
+  const enabled = state?.enabled;
+
+  const [device] = useMedia();
+
+  const className = useMemo(() => {
+    const classes = ['h-20 min-h-20 overflow-hidden duration-300 ease-in-out'];
+    if (enabled) {
+      classes.push('shadow-on');
+      if (device > MediaType.SM) classes.push('h-72');
+      else classes.push('h-screen');
+    } else classes.push('shadow-off');
+    return classes.join(' ');
+  }, [device, enabled]);
 
   return (
     <div className='Navigation'>
-      <Column
-        className={twMerge(
-          'h-20 min-h-20 overflow-hidden duration-300 ease-in-out',
-          state?.enabled ? 'shadow-on h-72' : 'shadow-off',
-        )}
-      >
-        <Row
-          information={['About', 'Contact', 'Services']}
-          project={[
-            'Branding & Identity',
-            'Graphic Design',
-            '3D Visualization & Animation',
-            'Photography & Documentary',
-            'Video Production',
-            'Curate Exhibition',
-          ]}
-        />
+      <Column className={className}>
+        <Row />
       </Column>
       <Column className='pointer-events-none absolute top-0 flex h-20 items-center justify-between'>
         <Button className='pointer-events-auto'>

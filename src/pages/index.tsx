@@ -30,10 +30,13 @@ const RoutePages = memo(() => (
 const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
   const value: TContext = useMemo(() => [state, setState], [state]);
+
   return (
     <div className='App'>
       <Context.Provider {...{ value }}>
-        <BrowserRouter basename='one-house-website'>
+        <BrowserRouter
+          basename={window.location.hostname.indexOf('github') > 0 ? 'one-house-website' : ''}
+        >
           <RoutePages />
           <Navigation />
         </BrowserRouter>

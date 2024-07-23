@@ -5,7 +5,7 @@ const Physics = memo(({ onload }: { onload: () => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (ref.current) {
-      new MatterSVG({ element: ref.current, onload });
+      new MatterSVG({ element: ref.current, onload, scale: window.innerWidth / 1394 });
     }
   }, []);
   return <div ref={ref} className='physics absolute left-0 top-0 h-full w-full' />;

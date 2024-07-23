@@ -16,6 +16,7 @@ import { SVGs } from './config';
 type TProps = {
   element: HTMLElement;
   onload: () => void;
+  scale: number;
 };
 
 export default class MatterSVG {
@@ -32,9 +33,12 @@ export default class MatterSVG {
   }[] = [];
 
   dropHeight = 0;
+  scale = 1;
+  staticObjectNumber = 5;
 
   constructor(props: TProps) {
     this.props = props;
+    this.scale = this.props.scale;
 
     const { width, height } = this.props.element.getBoundingClientRect();
     const { Engine, Render, Runner, Bodies, Composite } = Matter;
@@ -48,6 +52,11 @@ export default class MatterSVG {
     });
 
     const ground = Bodies.rectangle(width * 0.5, height + 250, width, 500, {
+      isStatic: true,
+      render: { visible: true },
+    });
+
+    const scrollStage = Bodies.rectangle(width - 150, height - 20, 300, 100, {
       isStatic: true,
       render: { visible: false },
     });
@@ -67,7 +76,7 @@ export default class MatterSVG {
       render: { visible: false },
     });
 
-    Composite.add(this.engine.world, [ground, leftWall, rightWall, rootWall]);
+    Composite.add(this.engine.world, [ground, scrollStage, leftWall, rightWall, rootWall]);
     Render.run(this.render);
 
     this.loadAndPathToVertices();
@@ -89,7 +98,7 @@ export default class MatterSVG {
   appendSVGs() {
     this.SVGsProperty.forEach(({ svg, size, scale, offset }) => {
       const vertexSets = this.select(svg, 'path').map((path) =>
-        Vertices.scale(Svg.pathToVertices(path, 10), scale, scale, {
+        Vertices.scale(Svg.pathToVertices(path, 10), scale * this.scale, scale * this.scale, {
           x: size.width / 2,
           y: size.height / 2,
         }),
@@ -98,14 +107,19 @@ export default class MatterSVG {
 
       Composite.add(
         this.engine.world,
-        Bodies.fromVertices(md + offset.x, this.dropHeight + offset.y, vertexSets, {
-          render: {
-            fillStyle: this.color,
-            strokeStyle: this.color,
-            lineWidth: 30,
-            visible: false,
+        Bodies.fromVertices(
+          md + offset.x * this.scale,
+          (this.dropHeight + offset.y) * this.scale,
+          vertexSets,
+          {
+            render: {
+              fillStyle: this.color,
+              strokeStyle: this.color,
+              lineWidth: 30,
+              visible: false,
+            },
           },
-        }),
+        ),
       );
       this.props.element.appendChild(svg.documentElement);
     });
@@ -155,9 +169,9 @@ export default class MatterSVG {
 
     EnterFrame.add(() => {
       [...this.props.element.getElementsByTagName('svg')].forEach((svg, i) => {
-        const { position, angle } = this.engine.world.bodies[i + 4];
+        const { position, angle } = this.engine.world.bodies[i + this.staticObjectNumber];
         const { width, height } = this.SVGsProperty[i].size;
-        svg.style.transform = `translate(${position.x - width / 2}px, ${position.y - height / 2}px) rotate(${angle}rad)`;
+        svg.style.transform = `translate(${position.x - width / 2}px, ${position.y - height / 2}px) rotate(${angle}rad) scale(${this.scale})`;
       });
     });
 
