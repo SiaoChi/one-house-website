@@ -53,3 +53,6 @@ export type TContext = [IState, Dispatch<IAction>];
 export interface IReactProps {
   readonly children?: ReactNode;
 }
+
+export type TSelectedProjectProps = { title: string; body: string }[];
+export type TClientProps = { image: string }[];

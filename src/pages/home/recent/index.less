@@ -1,0 +1,17 @@
+.Recent {
+  @apply relative flex w-full flex-col items-center justify-start pb-12 pt-12 lg:pb-40 lg:pt-60;
+
+  .cover {
+    max-width: 100%;
+    width: 800px;
+
+    .img {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      width: 100%;
+      background-image: url(@img);
+      background-size: cover;
+
+      @img: './img/tmpCover.jpg';
+    }
+  }
+}

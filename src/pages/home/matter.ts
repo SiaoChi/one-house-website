@@ -35,6 +35,7 @@ export default class MatterSVG {
   dropHeight = 0;
   scale = 1;
   staticObjectNumber = 5;
+  scrollState = { start: { x: 0, y: 0, scrollY: 0 }, move: { x: 0, y: 0 }, enabled: false };
 
   constructor(props: TProps) {
     this.props = props;
@@ -53,10 +54,10 @@ export default class MatterSVG {
 
     const ground = Bodies.rectangle(width * 0.5, height + 250, width, 500, {
       isStatic: true,
-      render: { visible: true },
+      render: { visible: false },
     });
 
-    const scrollStage = Bodies.rectangle(width - 150, height - 20, 300, 100, {
+    const scrollStage = Bodies.rectangle(width - 60, height - 20, 150, 100, {
       isStatic: true,
       render: { visible: false },
     });
@@ -135,12 +136,49 @@ export default class MatterSVG {
   }
 
   mouseCollision() {
-    const mouse = Mouse.create(this.render.canvas),
-      mouseConstraint = MouseConstraint.create(this.engine, {
-        mouse: mouse,
-        constraint: { stiffness: 1, render: { visible: false } },
-      });
+    const mouse = Mouse.create(this.render.canvas);
+    const mouseConstraint = MouseConstraint.create(this.engine, {
+      mouse: mouse,
+      constraint: { stiffness: 1, render: { visible: false } },
+    });
     Composite.add(this.engine.world, mouseConstraint);
+
+    this.render.canvas.addEventListener('wheel', this.onWheel);
+
+    this.render.canvas.addEventListener('touchstart', this.onTouchStart.bind(this));
+    this.render.canvas.addEventListener('touchmove', this.onTouchMove.bind(this));
+    this.render.canvas.addEventListener('touchend', this.onTouchEnd.bind(this));
+  }
+
+  onWheel(e: WheelEvent) {
+    const { deltaY } = e;
+    const { scrollY } = window;
+    const y = scrollY + deltaY;
+    window.scrollTo(0, y);
+  }
+
+  onTouchEnd(e: TouchEvent) {
+    e.preventDefault();
+    this.scrollState.enabled = false;
+  }
+
+  onTouchMove(e: TouchEvent) {
+    e.preventDefault();
+    if (this.scrollState.enabled) {
+      const { clientX, clientY } = e.touches[0];
+      const { start } = this.scrollState;
+      window.scrollTo(0, start.scrollY + (start.y - clientY));
+      this.scrollState.move = { x: clientX, y: clientY };
+    }
+  }
+
+  onTouchStart(e: TouchEvent) {
+    e.preventDefault();
+    const { clientX, clientY } = e.touches[0];
+    const { scrollY } = window;
+    this.scrollState.start = { x: clientX, y: clientY, scrollY };
+
+    this.scrollState.enabled = true;
   }
 
   select(root: Document, selector: string): SVGPathElement[] {
@@ -176,7 +214,6 @@ export default class MatterSVG {
     });
 
     EnterFrame.play();
-
     this.props.onload();
   }
 

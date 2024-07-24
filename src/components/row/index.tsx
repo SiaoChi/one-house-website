@@ -1,8 +1,10 @@
 import useMedia, { MediaType } from '@/hooks/useMedia';
 import { MENU_ITEMS } from '@/settings/config';
-import { memo, useMemo } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Button from '../button';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Item = memo(({ item, index }: { item: (typeof MENU_ITEMS)[number]; index: number }) => {
   const classes = [
@@ -26,8 +28,10 @@ const Item = memo(({ item, index }: { item: (typeof MENU_ITEMS)[number]; index: 
 });
 
 const Row = memo(() => {
-  const [device] = useMedia();
+  const [context] = useContext(Context);
+  const enabled = context[ActionType.MenuDraw]?.enabled;
 
+  const [device] = useMedia();
   const items = useMemo(() => {
     if (device <= MediaType.SM) return [...MENU_ITEMS].reverse();
     return [...MENU_ITEMS];
@@ -35,8 +39,8 @@ const Row = memo(() => {
 
   return (
     <div className='relative flex h-full w-full flex-col'>
-      <div className='w-fulls min-h-20'>
-        <div className='relative flex h-screen w-full flex-col-reverse pt-20 lg:h-auto lg:flex-row lg:pt-0'>
+      <div className='w-fulls relative min-h-20'>
+        <div className='relative flex h-screen w-full flex-col-reverse justify-start pt-20 lg:h-auto lg:flex-row lg:pt-0'>
           <div className='flex-1'>
             <div className='flex h-full w-full flex-col justify-end space-y-10 pt-20 lg:justify-between lg:space-y-0'>
               <div className='flex w-full flex-col items-start justify-start space-y-2 text-lg lg:text-sm'>
@@ -53,6 +57,7 @@ const Row = memo(() => {
             <Item item={item} index={index} key={item.name} />
           ))}
         </div>
+        {!enabled && <div className='absolute top-0 h-20 w-full bg-white lg:hidden' />}
       </div>
     </div>
   );

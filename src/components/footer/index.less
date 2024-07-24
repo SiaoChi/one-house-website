@@ -1,0 +1,19 @@
+.Footer {
+  @apply w-full bg-red-500 py-5;
+
+  .logo {
+    width: image-width(@img) * @scale;
+    height: image-height(@img) * @scale;
+    background-image: url(@img);
+    background-size: 100%;
+
+    @scale: 1;
+    @img: './img/logo.svg';
+  }
+
+  button {
+    &:hover {
+      @apply text-hover;
+    }
+  }
+}

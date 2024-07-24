@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './home';
 import Navigation from '@/components/navigation';
+import Footer from '@/components/footer';
 
 Fetcher.install({
   hostUrl: import.meta.env.VITE_API_PATH || './api',
@@ -38,8 +39,9 @@ const App = () => {
           basename={window.location.hostname.indexOf('github') > 0 ? 'one-house-website' : ''}
         >
           <RoutePages />
-          <Navigation />
         </BrowserRouter>
+        <Navigation />
+        <Footer />
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>
     </div>

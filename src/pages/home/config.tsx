@@ -8,6 +8,20 @@ import t5 from './img/t5.svg';
 import t6 from './img/t6.svg';
 import t7 from './img/t7.svg';
 import t8 from './img/t8.svg';
+import c0 from './clients/img/0.svg';
+import c1 from './clients/img/1.svg';
+import c2 from './clients/img/2.svg';
+import c3 from './clients/img/3.svg';
+import c4 from './clients/img/4.png';
+import c5 from './clients/img/5.svg';
+import c6 from './clients/img/6.png';
+import c7 from './clients/img/7.svg';
+import c8 from './clients/img/8.svg';
+import c9 from './clients/img/9.svg';
+import c10 from './clients/img/10.svg';
+import c11 from './clients/img/11.svg';
+
+import { TClientProps, TSelectedProjectProps } from '@/settings/type';
 
 export enum HomeStepType {
   unset = 0,
@@ -29,4 +43,28 @@ export const SVGs = [
   { path: t6, offset: { x: 305, y: 137 }, scale: 1 },
   { path: t7, offset: { x: 453, y: 183 }, scale: 1 },
   { path: t8, offset: { x: 615, y: 147 }, scale: 1 },
+];
+
+export const SelectedProjectData: TSelectedProjectProps = [
+  { title: 'KPLUS', body: '2024, Photography & Documentary' },
+  { title: 'Gogoro CrossOver', body: '2023, Photography & Documentary' },
+  { title: '袁子芸Sonia Yuan-N°1 de CHANEL', body: '2023, Photography & Documentary' },
+  { title: 'Irensense Pop up store', body: '2024, Curate Exhibition' },
+  { title: '底片叔叔 Film Uncle', body: '2021, Branding & Identity' },
+  { title: 'Instil coffee Package', body: '2024, Graphic Design' },
+];
+
+export const ClientsData: TClientProps = [
+  { image: c0 },
+  { image: c1 },
+  { image: c2 },
+  { image: c3 },
+  { image: c4 },
+  { image: c5 },
+  { image: c6 },
+  { image: c7 },
+  { image: c8 },
+  { image: c9 },
+  { image: c10 },
+  { image: c11 },
 ];

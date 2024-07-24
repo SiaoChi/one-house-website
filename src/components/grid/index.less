@@ -1,0 +1,57 @@
+@import url('../../settings/config.less');
+
+.Grid {
+  @apply flex w-full py-10 text-sm lg:text-base;
+
+  & > div {
+    height: 50px;
+  }
+
+  .selected,
+  .clients {
+    min-width: 600px;
+    width: 60%;
+    height: fit-content;
+    @apply flex;
+  }
+
+  .selected {
+    @apply flex-col lg:flex-row lg:flex-wrap;
+
+    @media only screen and (max-width: @MD) {
+      & {
+        min-width: 0;
+        width: 60%;
+      }
+    }
+  }
+
+  .clients {
+    @apply flex-row flex-wrap;
+
+    @media only screen and (max-width: @MD) {
+      & {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  & > div:nth-child(1) {
+    @apply flex-1 select-none font-reddit uppercase;
+  }
+
+  button {
+    @apply font-reddit text-base;
+
+    &:hover {
+      @apply text-hover;
+    }
+  }
+
+  .image {
+    padding-bottom: 12 / 16 * 100%;
+    background-size: contain;
+    @apply w-full bg-center bg-no-repeat;
+  }
+}
