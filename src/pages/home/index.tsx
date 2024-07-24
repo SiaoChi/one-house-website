@@ -2,13 +2,13 @@ import FullPage from '@/components/fullPage';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { memo, useContext, useEffect, useState } from 'react';
+import Clients from './clients';
 import { HomeContext, HomeState, THomeState } from './config';
 import Description from './description';
 import './index.less';
 import Physics from './physics';
 import Recent from './recent';
 import Selected from './selected';
-import Clients from './clients';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);

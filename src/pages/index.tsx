@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './home';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
+import Marquee from '@/components/marquee';
 
 Fetcher.install({
   hostUrl: import.meta.env.VITE_API_PATH || './api',
@@ -42,6 +43,7 @@ const App = () => {
         </BrowserRouter>
         <Navigation />
         <Footer />
+        <Marquee />
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>
     </div>

@@ -8,18 +8,18 @@ import t5 from './img/t5.svg';
 import t6 from './img/t6.svg';
 import t7 from './img/t7.svg';
 import t8 from './img/t8.svg';
-import c0 from './clients/img/0.svg';
-import c1 from './clients/img/1.svg';
-import c2 from './clients/img/2.svg';
-import c3 from './clients/img/3.svg';
+import c0 from './clients/img/0.png';
+import c1 from './clients/img/1.png';
+import c2 from './clients/img/2.png';
+import c3 from './clients/img/3.png';
 import c4 from './clients/img/4.png';
-import c5 from './clients/img/5.svg';
+import c5 from './clients/img/5.png';
 import c6 from './clients/img/6.png';
-import c7 from './clients/img/7.svg';
-import c8 from './clients/img/8.svg';
-import c9 from './clients/img/9.svg';
-import c10 from './clients/img/10.svg';
-import c11 from './clients/img/11.svg';
+import c7 from './clients/img/7.png';
+import c8 from './clients/img/8.png';
+import c9 from './clients/img/9.png';
+import c10 from './clients/img/10.png';
+import c11 from './clients/img/11.png';
 
 import { TClientProps, TSelectedProjectProps } from '@/settings/type';
 

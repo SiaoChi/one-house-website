@@ -28,7 +28,7 @@ const Item = memo(({ data }: { data: TClientProps[number] | TSelectedProjectProp
   const className = useMemo(() => {
     const classes = [];
     if (isSelected) classes.push('pb-5 pr-5 w-full lg:w-1/3');
-    else classes.push('lg:pb-10 lg:pr-10 pb-5 pr-5 w-1/5 lg:w-1/6');
+    else classes.push('lg:pb-5 lg:pr-5 pb-2 pr-2 w-1/5 lg:w-1/6');
     return classes.join(' ');
   }, [isSelected]);
 

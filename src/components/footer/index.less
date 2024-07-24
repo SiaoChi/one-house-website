@@ -1,5 +1,6 @@
+@import url('../../settings/config.less');
 .Footer {
-  @apply w-full bg-red-500 py-5;
+  @apply relative w-full py-5;
 
   .logo {
     width: image-width(@img) * @scale;
@@ -9,6 +10,15 @@
 
     @scale: 1;
     @img: './img/logo.svg';
+
+    @media only screen and (max-width: @MD) {
+      & {
+        width: image-width(@img) * @scale;
+        height: image-height(@img) * @scale;
+
+        @scale: 0.6;
+      }
+    }
   }
 
   button {
