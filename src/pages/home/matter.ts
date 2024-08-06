@@ -136,6 +136,9 @@ export default class MatterSVG {
   }
 
   mouseCollision() {
+    const isTouchDevice = (() => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent))();
+    if (isTouchDevice) return;
+
     const mouse = Mouse.create(this.render.canvas);
     const mouseConstraint = MouseConstraint.create(this.engine, {
       mouse: mouse,
@@ -207,9 +210,12 @@ export default class MatterSVG {
 
     EnterFrame.add(() => {
       [...this.props.element.getElementsByTagName('svg')].forEach((svg, i) => {
-        const { position, angle } = this.engine.world.bodies[i + this.staticObjectNumber];
-        const { width, height } = this.SVGsProperty[i].size;
-        svg.style.transform = `translate(${position.x - width / 2}px, ${position.y - height / 2}px) rotate(${angle}rad) scale(${this.scale})`;
+        const data = this.engine.world.bodies[i + this.staticObjectNumber];
+        if (data) {
+          const { position, angle } = data;
+          const { width, height } = this.SVGsProperty[i].size;
+          svg.style.transform = `translate(${position.x - width / 2}px, ${position.y - height / 2}px) rotate(${angle}rad) scale(${this.scale})`;
+        }
       });
     });
 

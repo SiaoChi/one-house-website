@@ -16,7 +16,9 @@ export default {
     },
     fontFamily: {
       reddit: ['Reddit Sans', 'sans-serif'],
+      redditSemiBold: ['Reddit Sans semiBold', 'sans-serif'],
       redditItalic: ['Reddit Sans italic', 'sans-serif'],
+      noto: ['Noto Sans TC', 'sans-serif'],
     },
     colors: {
       ...color,

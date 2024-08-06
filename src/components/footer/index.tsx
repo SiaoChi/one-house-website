@@ -36,11 +36,11 @@ const Footer = memo(() => {
             <br />© 2024 ONE HOUSE All rights reserved
           </div>
         </div>
-        <div className='font-lg flex flex-col items-end space-x-0 font-reddit text-sm lg:flex-row lg:space-x-5 lg:pr-20'>
+        <div className='font-lg flex select-none flex-col items-end space-x-0 font-reddit text-sm lg:flex-row lg:space-x-5 lg:pr-20'>
           <Button className='uppercase'>INStagram</Button>
           <Button className='uppercase'>Facebook</Button>
         </div>
-        <div className='hidden lg:block'>
+        <div className='hidden select-none lg:block'>
           <PageTop />
         </div>
       </Column>

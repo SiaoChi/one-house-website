@@ -1,4 +1,6 @@
 import FullPage from '@/components/fullPage';
+import useData from '@/hooks/useData';
+import { REST_PATH } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { memo, useContext, useEffect, useState } from 'react';
@@ -13,24 +15,27 @@ import Selected from './selected';
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
   const [state, setState] = useState<THomeState>(HomeState);
+  const [data] = useData(REST_PATH.home);
 
   useEffect(() => {
-    setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
   }, []);
 
   return (
     <div className='Home'>
       <HomeContext.Provider value={[state, setState]}>
         <FullPage>
-          <Physics
-            onload={() => {
-              setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-            }}
-          />
+          {data && (
+            <Physics
+              onload={() => {
+                setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+              }}
+            />
+          )}
           <Description />
         </FullPage>
-        <Recent />
-        <Selected />
+        {data && <Recent data={data[0]} />}
+        {data && <Selected data={data} />}
         <Clients />
       </HomeContext.Provider>
     </div>

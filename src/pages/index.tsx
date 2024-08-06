@@ -1,4 +1,7 @@
+import Footer from '@/components/footer';
 import LoadingProcess from '@/components/loadingProcess';
+import Marquee from '@/components/marquee';
+import Navigation from '@/components/navigation';
 import { Context, InitialState, Reducer } from '@/settings/constant';
 import '@/settings/global.less';
 import { ActionType, TContext } from '@/settings/type';
@@ -7,9 +10,8 @@ import { memo, useMemo, useReducer } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './home';
-import Navigation from '@/components/navigation';
-import Footer from '@/components/footer';
-import Marquee from '@/components/marquee';
+import Information from './information';
+import Project from './project';
 
 Fetcher.install({
   hostUrl: import.meta.env.VITE_API_PATH || './api',
@@ -26,6 +28,11 @@ if (import.meta.env.VITE_MOCKING === 'true') {
 const RoutePages = memo(() => (
   <Routes>
     <Route path='/' element={<Home />} />
+    <Route path='/information' element={<Information />} />
+    <Route path='/project' element={<Project />} />
+    <Route path='/project/:category' element={<Project />} />
+    <Route path='/project/:category/:name' element={<Project />} />
+    <Route path='*' element={<Home />} />
   </Routes>
 ));
 
@@ -40,10 +47,10 @@ const App = () => {
           basename={window.location.hostname.indexOf('github') > 0 ? 'one-house-website' : ''}
         >
           <RoutePages />
+          <Footer />
+          <Marquee />
+          <Navigation />
         </BrowserRouter>
-        <Navigation />
-        <Footer />
-        <Marquee />
         {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
       </Context.Provider>
     </div>

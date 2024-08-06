@@ -1,0 +1,53 @@
+@import url('../../settings/config.less');
+
+.Information {
+  min-height: calc(100vh - 80px - 148px - 44px);
+  @apply flex w-full flex-col items-start justify-start py-44 font-reddit text-xs lg:py-72 lg:text-sm;
+
+  .head {
+    @apply flex w-full flex-row justify-end;
+
+    & > div {
+      width: 288px + 176px;
+      @apply flex flex-col justify-start;
+
+      @media only screen and (max-width: @MD) {
+        & {
+          width: fit-content;
+        }
+      }
+    }
+  }
+
+  .body {
+    @apply flex w-full flex-col justify-start space-y-20 pt-20 text-xs leading-6 lg:pt-44 lg:text-base lg:leading-7;
+
+    .cht {
+      @apply w-11/12 text-justify font-noto lg:w-1/2;
+    }
+
+    .eng {
+      @apply w-11/12 font-noto lg:w-9/12;
+    }
+
+    .contact {
+      @apply flex w-full flex-col;
+
+      a {
+        @apply hover:text-hover;
+      }
+    }
+
+    .services {
+      @apply flex w-full flex-col justify-start;
+
+      & > div:nth-child(1) {
+        @apply font-redditSemiBold font-black uppercase;
+      }
+
+      & > div:not(:first-child) {
+        @apply font-reddit font-thin;
+      }
+    }
+  }
+}

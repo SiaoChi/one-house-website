@@ -1,19 +1,30 @@
-import { memo, useEffect, useMemo } from 'react';
-import './index.less';
-import Button from '../button';
-import { TClientProps, TSelectedProjectProps } from '@/settings/type';
+import { TResult } from '@/hooks/useData';
+import { TClientProps } from '@/settings/type';
+import { memo, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
+import Button from '../button';
+import './index.less';
+import useCategoryToName from '@/hooks/useCategoryToName';
+import { useNavigate } from 'react-router-dom';
 
 type TProps = {
   title: string;
-  data: TClientProps | TSelectedProjectProps;
+  data: TClientProps | TResult[];
 };
 
-const Link = memo(({ data }: { data: TSelectedProjectProps[number] }) => {
+const Link = memo(({ data }: { data: TResult }) => {
+  const navigate = useNavigate();
+
+  const [name] = useCategoryToName(data.category);
   return (
-    <Button className='text-left'>
-      <div className='underline'>{data.title}</div>
-      <div className=''>{data.body}</div>
+    <Button
+      className='text-left'
+      onClick={() => {
+        navigate(`/project/${data.category}/${encodeURI(data.project)}`);
+      }}
+    >
+      <div className='underline'>{data.project}</div>
+      <div className=''>{String(name)}</div>
     </Button>
   );
 });
@@ -22,8 +33,8 @@ const Image = memo(({ data }: { data: TClientProps[number] }) => {
   return <div className='image' style={{ backgroundImage: `url(${data.image})` }} />;
 });
 
-const Item = memo(({ data }: { data: TClientProps[number] | TSelectedProjectProps[number] }) => {
-  const isSelected = Object.prototype.hasOwnProperty.call(data, 'title');
+const Item = memo(({ data }: { data: TClientProps[number] | TResult }) => {
+  const isSelected = Object.prototype.hasOwnProperty.call(data, 'project');
 
   const className = useMemo(() => {
     const classes = [];
@@ -34,8 +45,8 @@ const Item = memo(({ data }: { data: TClientProps[number] | TSelectedProjectProp
 
   return (
     <div className={className}>
-      {Object.prototype.hasOwnProperty.call(data, 'title') ? (
-        <Link data={data as TSelectedProjectProps[number]} />
+      {Object.prototype.hasOwnProperty.call(data, 'project') ? (
+        <Link data={data as TResult} />
       ) : (
         <Image data={data as TClientProps[number]} />
       )}
@@ -43,26 +54,23 @@ const Item = memo(({ data }: { data: TClientProps[number] | TSelectedProjectProp
   );
 });
 
-const Grid = memo(({ title, data }: TProps) => {
-  useEffect(() => {}, []);
-  return (
+const Grid = memo(({ title, data }: TProps) => (
+  <div
+    className={twMerge(
+      'Grid',
+      Object.prototype.hasOwnProperty.call(data[0], 'project')
+        ? 'flex-row'
+        : 'flex-col lg:flex-row',
+    )}
+  >
+    <div>{title}</div>
     <div
-      className={twMerge(
-        'Grid',
-        Object.prototype.hasOwnProperty.call(data[0], 'title')
-          ? 'flex-row'
-          : 'flex-col lg:flex-row',
-      )}
+      className={Object.prototype.hasOwnProperty.call(data[0], 'title') ? 'selected' : 'clients'}
     >
-      <div>{title}</div>
-      <div
-        className={Object.prototype.hasOwnProperty.call(data[0], 'title') ? 'selected' : 'clients'}
-      >
-        {data.map((item, index) => (
-          <Item key={index} data={item} />
-        ))}
-      </div>
+      {data.map((item, index) => (
+        <Item key={index} data={item} />
+      ))}
     </div>
-  );
-});
+  </div>
+));
 export default Grid;

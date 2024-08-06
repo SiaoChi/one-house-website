@@ -1,0 +1,84 @@
+@import url(../../settings/config.less);
+
+.Project {
+  min-height: calc(100vh - 80px - 148px - 44px);
+  @apply flex w-full select-none flex-col items-start justify-start py-20 font-reddit text-xs lg:py-32 lg:text-sm;
+
+  .head {
+    width: 288px + 176px;
+    @apply flex flex-row justify-start;
+
+    @media only screen and (max-width: @MD) {
+      & {
+        width: fit-content;
+      }
+    }
+
+    & > div {
+      @apply flex flex-col items-end justify-start;
+
+      & > div:nth-child(1) {
+        @apply mb-20;
+      }
+
+      & > div:nth-child(2) {
+        @apply w-full text-right lg:text-left;
+      }
+
+      & > div:nth-child(3) {
+        @apply flex flex-col items-end justify-start lg:items-start;
+
+        & > button {
+          @apply hover:text-hover;
+        }
+      }
+    }
+  }
+
+  .description {
+    .list {
+      @apply flex w-full flex-row flex-wrap;
+
+      @media only screen and (max-width: @MD) {
+        & {
+          display: grid;
+          width: 80%;
+
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      span {
+        border-left: solid 1px;
+        @apply border-primary px-2 tracking-widest lg:w-fit;
+
+        @media only screen and (max-width: @MD) {
+          & {
+            @apply my-1;
+          }
+        }
+      }
+    }
+  }
+
+  .image {
+    padding-bottom: 9/16 * 100%;
+
+    @apply w-full bg-cover bg-center bg-no-repeat;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply h-10 w-10 text-white;
+
+    &:hover {
+      &::after {
+        @apply text-hover;
+      }
+    }
+
+    &::after {
+      @apply text-sm;
+    }
+  }
+}

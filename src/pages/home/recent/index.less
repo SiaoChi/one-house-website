@@ -8,10 +8,11 @@
     .img {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
       width: 100%;
-      background-image: url(@img);
       background-size: cover;
 
       @img: './img/tmpCover.jpg';
+
+      @apply bg-hover;
     }
   }
 }

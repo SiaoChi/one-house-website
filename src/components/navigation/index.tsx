@@ -8,9 +8,12 @@ import { ActionType } from '@/settings/type';
 import { twMerge } from 'tailwind-merge';
 import Row from '../row';
 import useMedia, { MediaType } from '@/hooks/useMedia';
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = memo(() => {
-  const [context] = useContext(Context);
+  const navigation = useNavigate();
+
+  const [context, setContext] = useContext(Context);
   const state = context[ActionType.MenuDraw];
   const enabled = state?.enabled;
 
@@ -32,7 +35,13 @@ const Navigation = memo(() => {
         <Row />
       </Column>
       <Column className='pointer-events-none absolute top-0 flex h-20 items-center justify-between'>
-        <Button className='pointer-events-auto'>
+        <Button
+          className='pointer-events-auto'
+          onClick={() => {
+            navigation('/');
+            setContext({ type: ActionType.MenuDraw, state: { enabled: false } });
+          }}
+        >
           <div className={twMerge('logo', state?.enabled ? 'opacity-30' : 'opacity-100')} />
         </Button>
         <Menu />
