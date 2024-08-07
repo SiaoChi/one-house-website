@@ -13,9 +13,9 @@ const Row = memo(({ data }: { data: TResult }) => {
   return (
     <Button onClick={() => navitation(`/project/${data.category}/${encodeURI(data.project)}`)}>
       <div className='row'>
-        <div></div>
+        <div className='hidden lg:block'></div>
         <div>{data.project}</div>
-        <div>{name}</div>
+        <div className='hidden lg:block'>{name}</div>
         <div>{data.year}</div>
       </div>
     </Button>
@@ -25,9 +25,9 @@ const Row = memo(({ data }: { data: TResult }) => {
 const Table = memo(({ data }: { data: TResult[] }) => (
   <div className='table'>
     <div className='row'>
-      <div></div>
+      <div className='hidden lg:block'></div>
       <div>Project /</div>
-      <div>Category /</div>
+      <div className='hidden lg:block'>Category /</div>
       <div>Year /</div>
     </div>
     {data.map((item, index) => (

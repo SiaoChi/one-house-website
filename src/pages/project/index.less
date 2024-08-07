@@ -128,10 +128,14 @@
     @apply w-full py-10;
 
     .row {
-      @apply grid w-full grid-cols-4 gap-4 border-b border-black py-2 font-reddit;
+      @apply flex w-full flex-row-reverse justify-end gap-4 border-b border-black py-2 font-reddit lg:grid lg:grid-cols-4;
 
       & > div {
-        @apply text-left;
+        @apply text-left text-xs lg:text-sm;
+      }
+
+      & > div:nth-child(4) {
+        @apply w-12 lg:w-auto;
       }
     }
 

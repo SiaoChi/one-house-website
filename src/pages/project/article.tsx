@@ -35,8 +35,6 @@ const Article = memo(() => {
   }, [name]);
 
   useEffect(() => {
-    console.log(category, page.index);
-
     if (!category) fetch(REST_PATH.all + `?page=${page.index}`);
     else fetch(REST_PATH.category + category + `&page=${page.index}`);
     setCategoryData(category ? category : 'all');
