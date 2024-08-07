@@ -1,6 +1,6 @@
 import useData, { TResult } from '@/hooks/useData';
 import { REST_PATH } from '@/settings/config';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Album from './album';
 import Table from './table';
@@ -8,6 +8,8 @@ import Table from './table';
 let active = true;
 
 const Article = memo(() => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const { category, name } = useParams();
   const [page, setPage] = useState({ index: 1 });
   const [data, setData] = useState<TResult[]>([]);
@@ -46,6 +48,11 @@ const Article = memo(() => {
   }, [categoryData]);
 
   useEffect(() => {
+    const top = (ref.current?.offsetTop || 0) - 100;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, [data]);
+
+  useEffect(() => {
     const onScroll = () => {
       if (!active) return;
 
@@ -64,7 +71,7 @@ const Article = memo(() => {
   }, []);
 
   return (
-    <div className='w-full'>
+    <div ref={ref} className='w-full'>
       {data.length > 0 && (
         <>
           <Album data={data[0]} />

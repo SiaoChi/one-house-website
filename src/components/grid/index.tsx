@@ -1,26 +1,32 @@
 import { TResult } from '@/hooks/useData';
 import { TClientProps } from '@/settings/type';
-import { memo, useMemo } from 'react';
+import { memo, useContext, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Button from '../button';
 import './index.less';
 import useCategoryToName from '@/hooks/useCategoryToName';
 import { useNavigate } from 'react-router-dom';
+import { HomeContext } from '@/pages/home/config';
 
 type TProps = {
   title: string;
   data: TClientProps | TResult[];
 };
 
-const Link = memo(({ data }: { data: TResult }) => {
-  const navigate = useNavigate();
+const Link = memo(({ data, index }: { data: TResult; index: number }) => {
+  const [, setState] = useContext(HomeContext);
 
+  const navigate = useNavigate();
   const [name] = useCategoryToName(data.category);
+
   return (
     <Button
       className='text-left'
       onClick={() => {
         navigate(`/project/${data.category}/${encodeURI(data.project)}`);
+      }}
+      onMouseOver={() => {
+        setState((S) => ({ ...S, overIndex: index }));
       }}
     >
       <div className='underline'>{data.project}</div>
@@ -33,7 +39,7 @@ const Image = memo(({ data }: { data: TClientProps[number] }) => {
   return <div className='image' style={{ backgroundImage: `url(${data.image})` }} />;
 });
 
-const Item = memo(({ data }: { data: TClientProps[number] | TResult }) => {
+const Item = memo(({ data, index }: { data: TClientProps[number] | TResult; index: number }) => {
   const isSelected = Object.prototype.hasOwnProperty.call(data, 'project');
 
   const className = useMemo(() => {
@@ -46,7 +52,7 @@ const Item = memo(({ data }: { data: TClientProps[number] | TResult }) => {
   return (
     <div className={className}>
       {Object.prototype.hasOwnProperty.call(data, 'project') ? (
-        <Link data={data as TResult} />
+        <Link data={data as TResult} index={index} />
       ) : (
         <Image data={data as TClientProps[number]} />
       )}
@@ -68,7 +74,7 @@ const Grid = memo(({ title, data }: TProps) => (
       className={Object.prototype.hasOwnProperty.call(data[0], 'category') ? 'selected' : 'clients'}
     >
       {data.map((item, index) => (
-        <Item key={index} data={item} />
+        <Item key={index} data={item} index={index} />
       ))}
     </div>
   </div>

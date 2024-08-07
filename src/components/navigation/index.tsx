@@ -1,14 +1,14 @@
+import useMedia, { MediaType } from '@/hooks/useMedia';
 import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import { memo, useContext, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 import Button from '../button';
 import Column from '../column';
 import Menu from '../menu';
-import './index.less';
-import { ActionType } from '@/settings/type';
-import { twMerge } from 'tailwind-merge';
 import Row from '../row';
-import useMedia, { MediaType } from '@/hooks/useMedia';
-import { useNavigate } from 'react-router-dom';
+import './index.less';
 
 const Navigation = memo(() => {
   const navigation = useNavigate();

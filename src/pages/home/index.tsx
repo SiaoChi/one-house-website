@@ -34,7 +34,7 @@ const Home = memo(() => {
           )}
           <Description />
         </FullPage>
-        {data && <Recent data={data[0]} />}
+        {data && <Recent data={data} />}
         {data && <Selected data={data} />}
         <Clients />
       </HomeContext.Provider>

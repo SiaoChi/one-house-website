@@ -23,14 +23,10 @@ import t8 from './img/t8.svg';
 
 import { TClientProps, TSelectedProjectProps } from '@/settings/type';
 
-export enum HomeStepType {
-  unset = 0,
-  fadeIn = 1,
-}
-export type THomeState = { step: HomeStepType };
+export type THomeState = { overIndex: number };
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
-export const HomeState = { step: HomeStepType.unset };
+export const HomeState: THomeState = { overIndex: 0 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);
 
 export const SVGs = [

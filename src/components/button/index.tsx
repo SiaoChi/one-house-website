@@ -4,11 +4,12 @@ import Regular from './regular';
 type TRegularProps = IReactProps & {
   className?: string;
   onClick?: () => void;
+  onMouseOver?: () => void;
 };
 
-const Button = ({ children, onClick, className = '' }: TRegularProps) => {
+const Button = ({ children, onClick, onMouseOver, className = '' }: TRegularProps) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button onClick={onClick} className={className} onMouseOver={onMouseOver}>
       {children}
     </button>
   );
