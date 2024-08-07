@@ -12,7 +12,7 @@
   }
 
   .selected {
-    @apply flex-col lg:flex-row lg:flex-wrap;
+    @apply flex-col flex-wrap text-xs lg:flex-row;
 
     @media only screen and (max-width: @MD) {
       & {
@@ -34,11 +34,11 @@
   }
 
   & > div:nth-child(1) {
-    @apply flex-1 select-none font-reddit uppercase;
+    @apply flex-1 select-none pr-20 font-reddit text-xs uppercase lg:pr-0 lg:text-sm;
   }
 
   button {
-    @apply font-reddit text-base;
+    @apply font-reddit text-xs lg:text-sm;
 
     &:hover {
       @apply text-hover;

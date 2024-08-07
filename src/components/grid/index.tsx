@@ -65,7 +65,7 @@ const Grid = memo(({ title, data }: TProps) => (
   >
     <div>{title}</div>
     <div
-      className={Object.prototype.hasOwnProperty.call(data[0], 'title') ? 'selected' : 'clients'}
+      className={Object.prototype.hasOwnProperty.call(data[0], 'category') ? 'selected' : 'clients'}
     >
       {data.map((item, index) => (
         <Item key={index} data={item} />
