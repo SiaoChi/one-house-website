@@ -64,4 +64,9 @@ export const Reducer = (state: IState, action: IAction): IState => {
   if (action.type) return { ...state, [action.type]: action.state };
   return state;
 };
-MenuDraw;
+
+const warn = console.warn;
+console.warn = (...args: any) => {
+  if (/Swiper Loop Warning:/.test(args[0])) return;
+  warn(...args);
+};

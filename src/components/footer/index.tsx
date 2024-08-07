@@ -1,13 +1,19 @@
 import useMedia, { MediaType } from '@/hooks/useMedia';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { IoArrowBackOutline, IoArrowUpOutline } from 'react-icons/io5';
+import { useLocation } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 import Button from '../button';
 import Column from '../column';
 import './index.less';
+import { LINKS } from '@/settings/config';
 
 const PageTop = () => {
   return (
-    <Button className='flex flex-row items-center uppercase'>
+    <Button
+      className='flex flex-row items-center uppercase'
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
       Page top
       <IoArrowUpOutline className='ml-1' />
     </Button>
@@ -15,8 +21,19 @@ const PageTop = () => {
 };
 
 const PageBack = () => {
+  const location = useLocation();
+
+  const hasHistory = useMemo(() => {
+    const { state, length } = history;
+    if (state && state.idx > 0 && length > 1) return true;
+    return false;
+  }, [location]);
+
   return (
-    <Button className='flex flex-row items-center uppercase'>
+    <Button
+      className={twMerge('flex flex-row items-center uppercase', hasHistory ? '' : 'hidden')}
+      onClick={() => history.back()}
+    >
       <IoArrowBackOutline className='mr-1' />
       back
     </Button>
@@ -37,10 +54,15 @@ const Footer = memo(() => {
           </div>
         </div>
         <div className='font-lg flex select-none flex-col items-end space-x-0 font-reddit text-sm lg:flex-row lg:space-x-5 lg:pr-20'>
-          <Button className='uppercase'>INStagram</Button>
-          <Button className='uppercase'>Facebook</Button>
+          <Button className='uppercase' onClick={() => window.open(LINKS.ig)}>
+            Instagram
+          </Button>
+          <Button className='uppercase' onClick={() => window.open(LINKS.youtube)}>
+            Youtube
+          </Button>
         </div>
-        <div className='hidden select-none lg:block'>
+        <div className='hidden select-none flex-row space-x-10 lg:flex'>
+          <PageBack />
           <PageTop />
         </div>
       </Column>

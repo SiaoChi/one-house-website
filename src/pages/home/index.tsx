@@ -18,8 +18,8 @@ const Home = memo(() => {
   const [data] = useData(REST_PATH.home);
 
   useEffect(() => {
-    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
-  }, []);
+    if (data) setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
+  }, [data]);
 
   return (
     <div className='Home'>

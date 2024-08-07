@@ -19,6 +19,7 @@
     "lesca-fetcher": "^1.1.7",
     "lesca-react-onload": "^1.0.18",
     "lesca-use-tween": "^3.0.8",
+    "lesca-validate": "^0.0.4",
     "matter-js": "^0.20.0",
     "react": "^18.3.1",
     "react-div-100vh": "^0.7.0",
